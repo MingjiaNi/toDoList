@@ -1,0 +1,45 @@
+.nav_bar{
+	width: 100vw;
+	position: fixed;
+	top:0px;
+	left: 0px;
+	background-color: #009999;
+	color:white;
+	font-size: 20px;
+	padding: 15px 20px;
+	z-index: 3;
+	margin:0px;
+	vertical-align: middle;
+}
+
+.sidebar{
+	width:280px;
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	min-height: calc(100vh - 60px);
+	background-color: grey;
+	z-index: 2;
+	padding: 20px;
+	padding-right: 0px;
+	display: none;
+
+}
+
+.content{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 100%;
+	min-height: 100vh;
+	background-color: #dddddd;
+	display: inline-block;
+}
+
+.navbarBtn{
+	background-color: transparent;
+	border-width: 0px;
+	vertical-align: middle;
+	display: table-cell;
+
+}
