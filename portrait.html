@@ -34,12 +34,16 @@
 
     </div>
     <div class="content" id="content">
-      <div class="noteCard noteInput floatCenter">
-        <div id="noteTitle" class="floatCenter noteTitle" onclick="showNoteContent()">
+      <div class="noteCard noteInput floatCenter" id="clickElsewhere">
+        <div id="noteTitle" class="floatCenter noteTitle" >
           Take a note…
         </div>
         <div class="floatCenter noteContent" id="noteContent">
           <textarea class="form-control autoExpand" rows="3" data-min-rows="3"  id="note"></textarea>
+          <div class="toolbar">
+
+            <a class="rightAlign customButton" onclick="submitNote()">Done</a>
+          </div>
         </div>
       </div>
     </div>
