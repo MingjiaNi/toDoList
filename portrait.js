@@ -96,6 +96,50 @@ function toggleSideBar(){
             width: 'swing'
         }
     });
+    if(newWidth>=1240){
+		columnNumber=4;
+		newWidth=1240;
+	}
+	else if(newWidth>=930){
+		columnNumber=3;
+		newWidth=930;
+	}else if(newWidth>=620){
+		columnNumber=2;
+		newWidth=620;
+	}
+	else if(newWidth>=310){
+		columnNumber=1;
+		newWidth=newWidth*0.8+16;
+		$(".customCard").animate({
+	        width: newWidth
+	    }, {
+	        duration: 400,
+	        specialEasing: {
+	            width: 'swing'
+	        }
+	    });
+	}
+	else{
+		columnNumber=0;
+		newWidth=newWidth-20;
+		$(".customCard").animate({
+	        width: newWidth
+	    }, {
+	        duration: 400,
+	        specialEasing: {
+	            width: 'swing'
+	        }
+	    });
+	}
+    $(".cardContainer").animate({
+        width: newWidth
+    }, {
+        duration: 400,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+
 }
 
 

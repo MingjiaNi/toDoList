@@ -1,3 +1,11 @@
+html{
+	/*overflow: hidden;*/
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 textarea{  
   display:block;
   box-sizing: padding-box;
@@ -36,7 +44,7 @@ textarea{
 
 .sidebar{
 	width:280px;
-	position: absolute;
+	position: fixed;
 	top: 60px;
 	left: 0px;
 	min-height: calc(100vh - 60px);
@@ -62,7 +70,8 @@ textarea{
 	width: 100%;
 	min-height: 100vh;
 	background-color: #e8e8e8;
-	display: inline-block;
+	display: block;
+	overflow-y: auto;
 }
 
 .navbarBtn{
@@ -80,13 +89,13 @@ textarea{
 }
 
 .noteInput{
-	position: relative;
-	top:100px;
+	margin-top:100px;
 	width: 600px;
 	max-width: 80%;
 }
 
 .noteTitle{
+
 	display: none;
 	height: 45px;
 	width: 100%;
@@ -111,8 +120,8 @@ textarea{
 }
 
 .cardContainer{
-	position: relative;
-	top:139px;
+	display: block;
+	margin-top:35px;
 	min-height: 70vh;
 }
 
