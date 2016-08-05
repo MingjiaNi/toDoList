@@ -87,6 +87,7 @@ textarea{
 }
 
 .noteTitle{
+	display: none;
 	height: 45px;
 	width: 100%;
 	line-height: 45px;
@@ -109,6 +110,12 @@ textarea{
 
 }
 
+.cardContainer{
+	position: relative;
+	top:139px;
+	min-height: 70vh;
+}
+
 
 .noteCard{
 	background-color: #fafafa;
@@ -121,6 +128,14 @@ textarea{
 	-webkit-box-shadow: 2px 2px 8px 1px rgba(150,150,150,0.72);
 	-moz-box-shadow: 2px 2px 8px 1px rgba(150,150,150,0.72);
 	box-shadow: 2px 2px 8px 1px rgba(150,150,150,0.72);
+}
+
+.customCard{
+	display: inline-block;
+	width: 290px;
+	min-height: 300px;
+	margin: 8px;
+	white-space: nowrap;
 }
 
 .customInput{

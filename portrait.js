@@ -1,3 +1,5 @@
+var columnNumber;
+
 $(document).ready(function() {
 
     //auto resize the textarea
@@ -41,6 +43,33 @@ $(document).ready(function() {
 		        }
 		    });
 		}
+	});
+
+	$( window ).resize(function() {
+		if($(window).width()>=1240){
+			columnNumber=4;
+			$(".cardContainer").width(1240);
+			$(".customCard").width(290);
+		}
+		else if($(window).width()>=930){
+			columnNumber=3;
+			$(".cardContainer").width(930);
+			$(".customCard").width(290);
+		}else if($(window).width()>=620){
+			columnNumber=2;
+			$(".cardContainer").width(620);
+			$(".customCard").width(290);
+		}
+		else if($(window).width()>=310){
+			columnNumber=1;
+			$(".cardContainer").width($(window).width()*0.8+18);
+			$(".customCard").width($(window).width()*0.8);
+		}
+		else{
+			columnNumber=0;
+			$(".cardContainer").width($(window).width()-20);
+			$(".customCard").width($(window).width()-20);
+		}	
 	});
 
 
@@ -90,21 +119,95 @@ function toggleSideBar(){
 function submitNote(){
 	var title = document.getElementById("title").value;
 	var note = document.getElementById("note").value;
-	console.log(title);
-	console.log(note);
-
-
-	//toggle and clear the input field
-	document.getElementById("title").value = "";
-	document.getElementById("note").value = "";
-	$(".nav_bar").click();
+	if(!isEmpty(title) || !isEmpty(note)){
+		if(checkInvalidChars(title)){
+			confirm("Your title might be an injecton attack.");
+		}
+		if(checkInvalidChars(note)){
+			confirm("Your note might be an injecton attack.");
+		}
+		newObject={'title':title, 'note':note};
+		//console.log(newObject);
+		//loadCard(newObject);
+		//setCookie(newObject);
+		//toggle and clear the input field
+		document.getElementById("title").value = "";
+		document.getElementById("note").value = "";
+		$(".nav_bar").click();
+	}
+	
 }
 
-function ifEmpty(){
+function isEmpty(theString){
+	if (theString){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+function checkInvalidChars(inputContent){
+	// $content=inputContent;
+	// patt['name'] = /^[a-z ,-]+$/i;
+	// patt['username'] = /^[A-z0-9_-]+$/i;
+	// patt['email'] = /^[a-z0-9]+(?:[\.-]?[a-z0-9]+)*@[a-z0-9]+([-]?[a-z0-9]+)*[\.-]?[a-z0-9]+([-]?[a-z0-9]+)*([\.-]?[a-z]{2,})*(\.[a-z]{2,5})+$/i;
+	// patt['website'] = /^http(s)?:\/\/(www\.)?[a-z0-9]+([-]?[a-z0-9]+)*[\.-]?[a-z0-9]+([-]?[a-z0-9]+)*([\.-]?[a-z]{2,})*(\.[a-z]{2,5})+$/i;
+	// patt['age'] = /^(?:([1][3-9]|[2-9][0-9]))$/i;
+	// patt['subject'] = /[a-z0-9?!:;'&_\. ,-]+/i;
+	// if($content.match(patt[inputType])){
+	// 	return false;
+	// }
+	// else{
+	// 	return true;
+	// }
+
+	var invalidPatt = /[!"·$%&/<>=?¿#¬]/; //cannot have this inside name
+
+	if (!invalidPatt.test( inputContent ) ) {
+		console.log("valid");
+	    return false;
+	}
+	else{
+		console.log("invalid");
+		return true;
+	}
 
 }
 
-function checkInvalidChars(){
+function loadCard(){
+
+}
+
+function loadAllCards(){
+	//console.log($(window).width());
+	if($(window).width()>=1240){
+		columnNumber=4;
+		$(".cardContainer").width(1240);
+	}
+	else if($(window).width()>=930){
+		columnNumber=3;
+		$(".cardContainer").width(930);
+	}else if($(window).width()>=620){
+		columnNumber=2;
+		$(".cardContainer").width(620);
+	}
+	else if($(window).width()>=310){
+		columnNumber=1;
+		$(".cardContainer").width($(window).width()*0.8+18);
+		$(".customCard").width($(window).width()*0.8);
+	}
+	else{
+		columnNumber=0;
+		$(".cardContainer").width($(window).width()-20);
+		$(".customCard").width($(window).width()-20);
+	}
+	$('.noteTitle').fadeIn(600,"swing");
+
+	console.log("load all cards");
+}
+
+function refreshPage(){
 
 }
 
@@ -112,7 +215,7 @@ function setCookie(){
 
 }
 
-function allCookie(){
+function getAllCookie(){
 
 }
 
