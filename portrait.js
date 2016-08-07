@@ -72,6 +72,14 @@ $(document).ready(function() {
 		}	
 	});
 
+	$( ".customCard" ).hover(
+		function() {
+			$( this ).find('.cardBtnGroup').show(300,'swing');
+		}, function() {
+			$( this ).find('.cardBtnGroup').hide(300,'swing');
+		}
+	);
+
 
 }); 
 
@@ -219,7 +227,7 @@ function checkInvalidChars(inputContent){
 
 }
 
-function loadCard(){
+function loadCard(newCard){
 
 }
 

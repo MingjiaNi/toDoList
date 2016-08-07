@@ -127,6 +127,7 @@ textarea{
 
 
 .noteCard{
+	vertical-align: top;
 	background-color: #fafafa;
 	-webkit-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
 	-moz-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
@@ -139,10 +140,25 @@ textarea{
 	box-shadow: 2px 2px 8px 1px rgba(150,150,150,0.72);
 }
 
+.cardTitle{
+	padding: 10px;
+	color: black;
+    font-weight: bold;
+    line-height: 17px;
+    font-size: 17px;
+    border-bottom:1px solid rgba(170,170,170,0.72);
+
+}
+
+.cardText{
+	white-space: normal ;
+	padding: 10px;
+
+}
+
 .customCard{
 	display: inline-block;
 	width: 290px;
-	min-height: 300px;
 	margin: 8px;
 	white-space: nowrap;
 }
@@ -173,6 +189,18 @@ textarea{
 	box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
 }
 
+.transparentBtn{
+	background-color: #fafafa;
+	border-width: 0px;
+}
+
+.transparentBtn:hover{
+	-webkit-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
+	-moz-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
+	box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
+	background-color: #eeeeee;
+}
+
 .customButton:hover{
 	background-color: #008888;
 	text-decoration: none;
@@ -182,6 +210,12 @@ textarea{
 	box-shadow: 2px 2px 8px 1px rgba(150,150,150,0.72);
 }
 
+.cardBtnGroup{
+	padding: 10px;
+	border-top:1px solid rgba(170,170,170,0.72);
+	display: none;
+
+}
 
 .noteTitle input::-webkit-input-placeholder {
     font-weight: bold;
@@ -204,3 +238,4 @@ textarea{
 .rightAlign{
 	float: right;
 }
+
