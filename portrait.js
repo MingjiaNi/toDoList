@@ -45,38 +45,40 @@ $(document).ready(function() {
 		}
 	});
 
-	$( window ).resize(function() {
-		if($(window).width()>=1240){
-			columnNumber=4;
-			$(".cardContainer").width(1240);
-			$(".customCard").width(290);
-		}
-		else if($(window).width()>=930){
-			columnNumber=3;
-			$(".cardContainer").width(930);
-			$(".customCard").width(290);
-		}else if($(window).width()>=620){
-			columnNumber=2;
-			$(".cardContainer").width(620);
-			$(".customCard").width(290);
-		}
-		else if($(window).width()>=310){
-			columnNumber=1;
-			$(".cardContainer").width($(window).width()*0.8+18);
-			$(".customCard").width($(window).width()*0.8);
-		}
-		else{
-			columnNumber=0;
-			$(".cardContainer").width($(window).width()-20);
-			$(".customCard").width($(window).width()-20);
-		}	
-	});
+	// $( window ).resize(function() {
+	// 	if($(window).width()>=1240){
+	// 		columnNumber=4;
+	// 		$(".cardContainer").width(1240);
+	// 		$(".customCard").width(290);
+	// 	}
+	// 	else if($(window).width()>=930){
+	// 		columnNumber=3;
+	// 		$(".cardContainer").width(930);
+	// 		$(".customCard").width(290);
+	// 	}else if($(window).width()>=620){
+	// 		columnNumber=2;
+	// 		$(".cardContainer").width(620);
+	// 		$(".customCard").width(290);
+	// 	}
+	// 	else if($(window).width()>=310){
+	// 		columnNumber=1;
+	// 		$(".cardContainer").width($(window).width()*0.8+18);
+	// 		$(".customCard").width($(window).width()*0.8);
+	// 	}
+	// 	else{
+	// 		columnNumber=0;
+	// 		$(".cardContainer").width($(window).width()-20);
+	// 		$(".customCard").width($(window).width()-20);
+	// 	}	
+	// });
 
 	$( ".customCard" ).hover(
 		function() {
+			$( this ).find('.placeholder').hide(300,'swing');
 			$( this ).find('.cardBtnGroup').show(300,'swing');
 		}, function() {
 			$( this ).find('.cardBtnGroup').hide(300,'swing');
+			$( this ).find('.placeholder').show(300,'swing');
 		}
 	);
 
@@ -104,41 +106,41 @@ function toggleSideBar(){
             width: 'swing'
         }
     });
-    if(newWidth>=1240){
-		columnNumber=4;
-		newWidth=1240;
-	}
-	else if(newWidth>=930){
-		columnNumber=3;
-		newWidth=930;
-	}else if(newWidth>=620){
-		columnNumber=2;
-		newWidth=620;
-	}
-	else if(newWidth>=310){
-		columnNumber=1;
-		newWidth=newWidth*0.8+16;
-		$(".customCard").animate({
-	        width: newWidth
-	    }, {
-	        duration: 400,
-	        specialEasing: {
-	            width: 'swing'
-	        }
-	    });
-	}
-	else{
-		columnNumber=0;
-		newWidth=newWidth-20;
-		$(".customCard").animate({
-	        width: newWidth
-	    }, {
-	        duration: 400,
-	        specialEasing: {
-	            width: 'swing'
-	        }
-	    });
-	}
+ //    if(newWidth>=1240){
+	// 	columnNumber=4;
+	// 	newWidth=1240;
+	// }
+	// else if(newWidth>=930){
+	// 	columnNumber=3;
+	// 	newWidth=930;
+	// }else if(newWidth>=620){
+	// 	columnNumber=2;
+	// 	newWidth=620;
+	// }
+	// else if(newWidth>=310){
+	// 	columnNumber=1;
+	// 	newWidth=newWidth*0.8+16;
+	// 	$(".customCard").animate({
+	//         width: newWidth
+	//     }, {
+	//         duration: 400,
+	//         specialEasing: {
+	//             width: 'swing'
+	//         }
+	//     });
+	// }
+	// else{
+	// 	columnNumber=0;
+	// 	newWidth=newWidth-20;
+	// 	$(".customCard").animate({
+	//         width: newWidth
+	//     }, {
+	//         duration: 400,
+	//         specialEasing: {
+	//             width: 'swing'
+	//         }
+	//     });
+	// }
     $(".cardContainer").animate({
         width: newWidth
     }, {
@@ -233,27 +235,27 @@ function loadCard(newCard){
 
 function loadAllCards(){
 	//console.log($(window).width());
-	if($(window).width()>=1240){
-		columnNumber=4;
-		$(".cardContainer").width(1240);
-	}
-	else if($(window).width()>=930){
-		columnNumber=3;
-		$(".cardContainer").width(930);
-	}else if($(window).width()>=620){
-		columnNumber=2;
-		$(".cardContainer").width(620);
-	}
-	else if($(window).width()>=310){
-		columnNumber=1;
-		$(".cardContainer").width($(window).width()*0.8+18);
-		$(".customCard").width($(window).width()*0.8);
-	}
-	else{
-		columnNumber=0;
-		$(".cardContainer").width($(window).width()-20);
-		$(".customCard").width($(window).width()-20);
-	}
+	// if($(window).width()>=1240){
+	// 	columnNumber=4;
+	// 	$(".cardContainer").width(1240);
+	// }
+	// else if($(window).width()>=930){
+	// 	columnNumber=3;
+	// 	$(".cardContainer").width(930);
+	// }else if($(window).width()>=620){
+	// 	columnNumber=2;
+	// 	$(".cardContainer").width(620);
+	// }
+	// else if($(window).width()>=310){
+	// 	columnNumber=1;
+	// 	$(".cardContainer").width($(window).width()*0.8+18);
+	// 	$(".customCard").width($(window).width()*0.8);
+	// }
+	// else{
+	// 	columnNumber=0;
+	// 	$(".cardContainer").width($(window).width()-20);
+	// 	$(".customCard").width($(window).width()-20);
+	// }
 	$('.noteTitle').fadeIn(600,"swing");
 
 	console.log("load all cards");
