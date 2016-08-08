@@ -91,7 +91,7 @@ textarea{
 .noteInput{
 	margin-top:100px;
 	width: 600px;
-	max-width: 80%;
+	max-width: 90%;
 }
 
 .noteTitle{
@@ -120,8 +120,15 @@ textarea{
 }
 
 .cardContainer{
-	display: block;
-	margin-top:35px;
+	-webkit-column-width: 320px; /* Chrome, Safari, Opera */
+	 -moz-column-width: 320px; /* Firefox */
+	column-width: 320px;
+	-webkit-column-gap: 15px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 15px; /* Firefox */
+	column-gap: 15px;
+  	width: 90%;
+	max-width: 1280px;
+	margin: 50px auto;
 	min-height: 70vh;
 }
 
@@ -133,6 +140,7 @@ textarea{
 	-moz-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
 	box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
 }
+
 
 .noteCard:hover{
 	-webkit-box-shadow: 2px 2px 8px 1px rgba(150,150,150,0.72);
@@ -158,11 +166,15 @@ textarea{
 
 .customCard{
 	display: inline-block;
-	width: 290px;
-	margin: 8px;
+	width: 100%;
+	margin: 8px 0px;
 	white-space: nowrap;
 }
 
+.customCard img{
+	width: 100%; height: auto;
+	margin-bottom: 5px;
+}
 .customInput{
 	line-height: 25px;
 	font-size: 15px;
@@ -187,6 +199,15 @@ textarea{
 	-webkit-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
 	-moz-box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
 	box-shadow: 2px 2px 5px 0px rgba(170,170,170,0.72);
+}
+
+.navBarBtn{
+	background-color: #009999;
+	border-width: 0px;
+}
+
+.navBarBtn:hover{
+	background-color: #008888;
 }
 
 .transparentBtn{
@@ -239,3 +260,7 @@ textarea{
 	float: right;
 }
 
+@media screen and (max-width: 750px) { 
+  	.cardContainer { column-gap: 0px; }
+  	.cardContainer div { width: 100%; }
+}
