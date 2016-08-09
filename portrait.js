@@ -1,4 +1,4 @@
-var columnNumber;
+var noteArray = [];
 
 $(document).ready(function() {
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		}
 		else{
 			$('#noteContent').show(300,"swing");
-			console.log("it shows");
+			//console.log("it shows");
 			$('#note').attr("placeholder","Take a note…");
 			$('#noteTitle').empty();
 			var newInput='<input type="text" id="title" class="customInput" placeholder="Title">';
@@ -38,7 +38,7 @@ $(document).ready(function() {
 		            $('#noteTitle').empty();
 		            $('#noteTitle').append('<span id="title" class="hiddenElement">Take a note…</span>');
 		            $("#title").show(300,"swing");
-		            console.log("it is hidden");
+		            //console.log("it is hidden");
 		            $(this).off(event);
 		        }
 		    });
@@ -174,17 +174,13 @@ function submitNote(){
 	var title = document.getElementById("title").value;
 	var note = document.getElementById("note").value;
 	if(!isEmpty(title) || !isEmpty(note)){
-		if(checkInvalidChars(title)){
-			confirm("Your title might be an injecton attack.");
+		if(!hasInvalidChars(title) && !hasInvalidChars(note)){
+			newObject={'title':title, 'note':note, 'id':(noteArray.length + 1)};
+			//console.log(newObject);
+			loadCard(newObject);
+			//setCookie(newObject);
+			//toggle and clear the input field
 		}
-		if(checkInvalidChars(note)){
-			confirm("Your note might be an injecton attack.");
-		}
-		newObject={'title':title, 'note':note};
-		//console.log(newObject);
-		//loadCard(newObject);
-		//setCookie(newObject);
-		//toggle and clear the input field
 		document.getElementById("title").value = "";
 		document.getElementById("note").value = "";
 		$(".nav_bar").click();
@@ -201,7 +197,7 @@ function isEmpty(theString){
 	}
 }
 
-function checkInvalidChars(inputContent){
+function hasInvalidChars(inputContent){
 	// $content=inputContent;
 	// patt['name'] = /^[a-z ,-]+$/i;
 	// patt['username'] = /^[A-z0-9_-]+$/i;
@@ -219,17 +215,114 @@ function checkInvalidChars(inputContent){
 	var invalidPatt = /[!"·$%&/<>=?¿#¬]/; //cannot have this inside name
 
 	if (!invalidPatt.test( inputContent ) ) {
-		console.log("valid");
+		//console.log("valid");
 	    return false;
 	}
 	else{
-		console.log("invalid");
-		return true;
+		//console.log("invalid");
+		var notXSS = confirm("Your note might be an injecton attack. Click OK to dismiss the alert and continue.");
+		console.log(notXSS);
+		return !notXSS;
 	}
 
 }
 
 function loadCard(newCard){
+	if (!newCard.note){
+		var newCard = '\
+			<div class="noteCard customCard" data-id="'+newCard.id+'">\
+	          <div class="cardTitle">'+newCard.title+'</div>\
+	          <div class="placeholder" style="height:43px"></div>\
+	          <div class="cardBtnGroup">\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn rightAlign">\
+	              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
+	            </button>\
+	          </div>\
+	        </div>	';
+	}
+	else if (!newCard.title){
+		var newCard = '\
+			<div class="noteCard customCard" data-id="'+newCard.id+'">\
+	          <div class="cardText">'+hideNote(newCard.note)+'</div>\
+	          <div class="placeholder" style="height:43px"></div>\
+	          <div class="cardBtnGroup">\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn rightAlign">\
+	              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
+	            </button>\
+	          </div>\
+	        </div>\
+			';
+	}
+	else{
+		var newCard = '\
+			<div class="noteCard customCard" data-id="'+newCard.id+'">\
+	          <!-- <img class="cardImg"> -->\
+	          <div class="cardTitle">'+newCard.title+'</div>\
+	          <div class="cardText">'+hideNote(newCard.note)+'</div>\
+	          <div class="placeholder" style="height:43px"></div>\
+	          <div class="cardBtnGroup">\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn">\
+	              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
+	            </button>\
+	            <button class="transparentBtn rightAlign">\
+	              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
+	            </button>\
+	          </div>\
+	        </div>\
+		';
+	}
+	document.getElementById('cardContainer').insertAdjacentHTML('afterbegin',newCard);
+}
+
+function hideNote(noteContent){
+	if(noteContent.length > 1000){
+		noteContent = noteContent.substring(0,1000) + '<button class="transparentBtn">\
+	             									<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>\
+	            								</button>';
+	}
+	return noteContent;
 
 }
 
