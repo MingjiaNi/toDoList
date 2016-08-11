@@ -5,16 +5,12 @@ $(document).ready(function() {
 
 	if (typeof(Storage) !== "undefined") {
 	    supportLocalStorage = true;
+	    loadAllCards(supportLocalStorage);
 	    //$('#triggerModalBtn').click();
 	} else {
 	    $('#triggerModalBtn').click();
+	    loadAllCards(supportLocalStorage);
 	}
-
-
-
-	loadAllCards(supportLocalStorage);
-
-
 	
 
     //auto resize the textarea
@@ -89,6 +85,12 @@ $(document).ready(function() {
 
 	$("#submitNote").click(function(){
 		submitNote();
+	});
+
+	$(".cardBtnGroup > .deleteCard").click(function(){
+		var idToBeDeleted = $(this).parent().parent().parent().data("id");
+		$(this).parent().parent().parent().remove();
+		deleteCard(idToBeDeleted);
 	});
 
 	$( ".customCard" ).hover(
@@ -265,7 +267,7 @@ function loadCard(newCard){
 		            <button class="transparentBtn">\
 		              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
 		            </button>\
-		            <button class="transparentBtn">\
+		            <button class="transparentBtn deleteCard" >\
 		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
 		            </button>\
 		            <button class="transparentBtn">\
@@ -293,7 +295,7 @@ function loadCard(newCard){
 		            <button class="transparentBtn">\
 		              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
 		            </button>\
-		            <button class="transparentBtn">\
+		            <button class="transparentBtn deleteCard" >\
 		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
 		            </button>\
 		            <button class="transparentBtn">\
@@ -324,7 +326,7 @@ function loadCard(newCard){
 		            <button class="transparentBtn">\
 		              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
 		            </button>\
-		            <button class="transparentBtn">\
+		            <button class="transparentBtn deleteCard" >\
 		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
 		            </button>\
 		            <button class="transparentBtn">\
@@ -389,14 +391,13 @@ function loadAllCards(){
 	$('#cardContainer').empty();
 	if (supportLocalStorage){
 		var allCards = getLocalStorage();
-		for(var i in allCards){
-			loadCard(allCards[i]);
-		}
 	}
 	else{
-		console.log("cookie feature has not been finished");
+		var allCards = getCookie();
 	}
-
+	for(var i in allCards){
+		loadCard(allCards[i]);
+	}
 	console.log("load all cards");
 }
 
@@ -410,6 +411,19 @@ function setLocalStorage(newCard){
 
 }
 
+function setCookie(newCard){
+	noteArray = getCookie();
+	noteArray.push(newCard);
+	noteArray =JSON.stringify(noteArray);
+	var d = new Date();
+	//expires after 1 year
+    d.setTime(d.getTime() + (365*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = "note=" + noteArray + "; " + expires;
+
+	console.log("setCookie finished");
+}
+
 function getNoteID(){
 	if (supportLocalStorage){
 		if(getLocalStorage()){
@@ -420,27 +434,53 @@ function getNoteID(){
 		}
 	}
 	else{
-		console.log('Use cookie');
+		if(getCookie()){
+			return getCookie().length;
+		}
+		else{
+			return 0;
+		}
 	}
 }
+
+
 
 function getLocalStorage(){
 	var noteArray = localStorage.getItem('note');
 	noteArray = JSON.parse(noteArray);
 	console.log('localStorage: ',noteArray );
 	if (noteArray === null){
-		return [];
+		return isfirstTimeUser();
 	}
 	else{
 		return noteArray;		
 	}
 }
 
-function setCookie(newCard){
-	console.log("setCookie not finished");
-}
 
 function getCookie(){
-	console.log("getCookie not finished");
+	console.log("getCookie is triggered");
+	noteArray = document.cookie.substring(5,-1);
+	noteArray = JSON.parse(noteArray);
+	if(noteArray === null){
+		return isfirstTimeUser();
+	}
+	else{
+		return noteArray;
+	}
 }
 
+function isfirstTimeUser(){
+	var caution ={};
+	var techniques = {};
+	var threeExamples = {};
+	var noteArray =[];
+	noteArray.push(caution);
+	noteArray.push(techniques);
+	noteArray.push(threeExamples);
+	return noteArray;
+}
+
+function deleteCard(id){
+	console.log(id);
+}
