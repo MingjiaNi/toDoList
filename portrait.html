@@ -44,7 +44,7 @@
           <textarea class="form-control autoExpand" rows="3" data-min-rows="3"  id="note"></textarea>
           <div class="toolbar">
 
-            <a class="rightAlign customButton" onclick="submitNote()">Done</a>
+            <a class="rightAlign customButton" id="submitNote">Done</a>
           </div>
         </div>
       </div>
@@ -60,26 +60,28 @@
               <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
             </button>
           </div>
-          <div class="placeholder" style="height:43px"></div>
-          <div class="cardBtnGroup">
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn rightAlign">
-              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-            </button>
+          <!-- <div class="placeholder" style="height:43px"></div> -->
+          <div class="placeholder">
+            <div class="cardBtnGroup">
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn rightAlign">
+                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="noteCard customCard">
@@ -90,26 +92,28 @@
               <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
             </button>
           </div>
-          <div class="placeholder" style="height:43px"></div>
-          <div class="cardBtnGroup">
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn rightAlign">
-              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-            </button>
+          <!-- <div class="placeholder" style="height:43px"></div> -->
+          <div class="placeholder">
+            <div class="cardBtnGroup">
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn rightAlign">
+                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="noteCard customCard">
@@ -117,30 +121,63 @@
           <div class="cardTitle">
             This card only contains Title.
           </div>
-          <div class="placeholder" style="height:43px"></div>
-          <div class="cardBtnGroup">
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn">
-              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-            </button>
-            <button class="transparentBtn rightAlign">
-              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-            </button>
+          <!-- <div class="placeholder" style="height:43px"></div> -->
+          <div class="placeholder">
+            <div class="cardBtnGroup">
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+              </button>
+              <button class="transparentBtn rightAlign">
+                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-        </div>    
+        </div>
+
+      </div>
+      <button id="triggerModalBtn" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display:none">
+        This is the invisible button used to call the modal.
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Attention</h4>
+            </div>
+            <div class="modal-body" id="myModalText">
+              This web app relies on html5 local storage feature. Your current browser
+              does not support this feature. We strongly recommend you to switch to a
+              browser with better html5 support such as 
+              <a href='https://www.google.com/chrome/'>Chrome</a>. <br><br> 
+              You will still be able to use our service, but that would be based on browser
+              cookies. Cookies give you a limit of 4095 bytes while local Storage is 
+              as big as 5MB per domain.
+            </div>
+            <div class="modal-footer">
+              <a class="rightAlign customButton" onclick="$('#closeModal').click()">Ok</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    
   </div>
   <!-- Custom Theme Scripts -->
   <!-- <script src="navbar.js"></script> -->

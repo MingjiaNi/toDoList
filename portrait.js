@@ -1,6 +1,21 @@
-var noteArray = [];
+var supportLocalStorage = false;
+
 
 $(document).ready(function() {
+
+	if (typeof(Storage) !== "undefined") {
+	    supportLocalStorage = true;
+	    //$('#triggerModalBtn').click();
+	} else {
+	    $('#triggerModalBtn').click();
+	}
+
+
+
+	loadAllCards(supportLocalStorage);
+
+
+	
 
     //auto resize the textarea
 	$(document).one('focus.textarea', '.autoExpand', function(){
@@ -72,15 +87,20 @@ $(document).ready(function() {
 	// 	}	
 	// });
 
+	$("#submitNote").click(function(){
+		submitNote();
+	});
+
 	$( ".customCard" ).hover(
 		function() {
-			$( this ).find('.placeholder').hide(300,'swing');
+			//$( this ).find('.placeholder').hide(300,'swing');
 			$( this ).find('.cardBtnGroup').show(300,'swing');
 		}, function() {
 			$( this ).find('.cardBtnGroup').hide(300,'swing');
-			$( this ).find('.placeholder').show(300,'swing');
+			//$( this ).find('.placeholder').show(300,'swing');
 		}
 	);
+
 
 
 }); 
@@ -175,10 +195,15 @@ function submitNote(){
 	var note = document.getElementById("note").value;
 	if(!isEmpty(title) || !isEmpty(note)){
 		if(!hasInvalidChars(title) && !hasInvalidChars(note)){
-			newObject={'title':title, 'note':note, 'id':(noteArray.length + 1)};
+			newObject={'title':title, 'note':note, 'id':getNoteID()};
 			//console.log(newObject);
+			if (supportLocalStorage){
+				setLocalStorage(newObject);
+			}
+			else{
+				setCookie(newObject);
+			}
 			loadCard(newObject);
-			//setCookie(newObject);
 			//toggle and clear the input field
 		}
 		document.getElementById("title").value = "";
@@ -212,7 +237,7 @@ function hasInvalidChars(inputContent){
 	// 	return true;
 	// }
 
-	var invalidPatt = /[!"·$%&/<>=?¿#¬]/; //cannot have this inside name
+	var invalidPatt = /["·$%&/<>=?¿#¬]/; //cannot have this inside name
 
 	if (!invalidPatt.test( inputContent ) ) {
 		//console.log("valid");
@@ -232,54 +257,56 @@ function loadCard(newCard){
 		var newCard = '\
 			<div class="noteCard customCard" data-id="'+newCard.id+'">\
 	          <div class="cardTitle">'+newCard.title+'</div>\
-	          <div class="placeholder" style="height:43px"></div>\
-	          <div class="cardBtnGroup">\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn rightAlign">\
-	              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
-	            </button>\
-	          </div>\
+	          <div class="placeholder">\
+		          <div class="cardBtnGroup">\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn rightAlign">\
+		              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
+		            </button>\
+		          </div>\
+		        </div>\
 	        </div>	';
 	}
 	else if (!newCard.title){
 		var newCard = '\
 			<div class="noteCard customCard" data-id="'+newCard.id+'">\
 	          <div class="cardText">'+hideNote(newCard.note)+'</div>\
-	          <div class="placeholder" style="height:43px"></div>\
-	          <div class="cardBtnGroup">\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn rightAlign">\
-	              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
-	            </button>\
-	          </div>\
+	          	<div class="placeholder">\
+		          <div class="cardBtnGroup">\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn rightAlign">\
+		              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
+		            </button>\
+		          </div>\
+		        </div>\
 	        </div>\
 			';
 	}
@@ -289,31 +316,41 @@ function loadCard(newCard){
 	          <!-- <img class="cardImg"> -->\
 	          <div class="cardTitle">'+newCard.title+'</div>\
 	          <div class="cardText">'+hideNote(newCard.note)+'</div>\
-	          <div class="placeholder" style="height:43px"></div>\
-	          <div class="cardBtnGroup">\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn">\
-	              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
-	            </button>\
-	            <button class="transparentBtn rightAlign">\
-	              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
-	            </button>\
-	          </div>\
+	          	<div class="placeholder">\
+		          <div class="cardBtnGroup">\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn">\
+		              <span class="glyphicon glyphicon-share" aria-hidden="true"></span>\
+		            </button>\
+		            <button class="transparentBtn rightAlign">\
+		              <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>\
+		            </button>\
+		          </div>\
+		        </div>\
 	        </div>\
 		';
 	}
 	document.getElementById('cardContainer').insertAdjacentHTML('afterbegin',newCard);
+	$( ".customCard" ).hover(
+		function() {
+			//$( this ).find('.placeholder').hide(300,'swing');
+			$( this ).find('.cardBtnGroup').show(300,'swing');
+		}, function() {
+			$( this ).find('.cardBtnGroup').hide(300,'swing');
+			//$( this ).find('.placeholder').show(300,'swing');
+		}
+	);
 }
 
 function hideNote(noteContent){
@@ -323,7 +360,6 @@ function hideNote(noteContent){
 	            								</button>';
 	}
 	return noteContent;
-
 }
 
 function loadAllCards(){
@@ -350,22 +386,61 @@ function loadAllCards(){
 	// 	$(".customCard").width($(window).width()-20);
 	// }
 	$('.noteTitle').fadeIn(600,"swing");
+	$('#cardContainer').empty();
+	if (supportLocalStorage){
+		var allCards = getLocalStorage();
+		for(var i in allCards){
+			loadCard(allCards[i]);
+		}
+	}
+	else{
+		console.log("cookie feature has not been finished");
+	}
 
 	console.log("load all cards");
 }
 
-function refreshPage(){
+
+function setLocalStorage(newCard){
+	var noteArray = getLocalStorage();
+	noteArray.push(newCard);
+	console.log('New array:',noteArray);
+	localStorage.removeItem('note');
+	localStorage.setItem('note', JSON.stringify(noteArray));
 
 }
 
-function setCookie(){
-
+function getNoteID(){
+	if (supportLocalStorage){
+		if(getLocalStorage()){
+			return getLocalStorage().length;
+		}
+		else{
+			return 0;
+		}
+	}
+	else{
+		console.log('Use cookie');
+	}
 }
 
-function getAllCookie(){
+function getLocalStorage(){
+	var noteArray = localStorage.getItem('note');
+	noteArray = JSON.parse(noteArray);
+	console.log('localStorage: ',noteArray );
+	if (noteArray === null){
+		return [];
+	}
+	else{
+		return noteArray;		
+	}
+}
 
+function setCookie(newCard){
+	console.log("setCookie not finished");
 }
 
 function getCookie(){
-
+	console.log("getCookie not finished");
 }
+
