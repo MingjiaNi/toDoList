@@ -87,11 +87,6 @@ $(document).ready(function() {
 		submitNote();
 	});
 
-	$(".cardBtnGroup > .deleteCard").click(function(){
-		var idToBeDeleted = $(this).parent().parent().parent().data("id");
-		$(this).parent().parent().parent().remove();
-		deleteCard(idToBeDeleted);
-	});
 
 	$( ".customCard" ).hover(
 		function() {
@@ -353,6 +348,13 @@ function loadCard(newCard){
 			//$( this ).find('.placeholder').show(300,'swing');
 		}
 	);
+
+
+	$(".cardBtnGroup > .deleteCard").click(function(){
+		var idToBeDeleted = $(this).parent().parent().parent().data("id");
+		$(this).parent().parent().parent().remove();
+		deleteCard(idToBeDeleted);
+	});
 }
 
 function hideNote(noteContent){
@@ -449,7 +451,9 @@ function getLocalStorage(){
 	var noteArray = localStorage.getItem('note');
 	noteArray = JSON.parse(noteArray);
 	console.log('localStorage: ',noteArray );
-	if (noteArray === null){
+	console.log('the length of the noteArray: '+noteArray.length);
+	if (noteArray === null || noteArray.length === 0){
+		console.log(isfirstTimeUser());
 		return isfirstTimeUser();
 	}
 	else{
@@ -462,7 +466,7 @@ function getCookie(){
 	console.log("getCookie is triggered");
 	noteArray = document.cookie.substring(5,-1);
 	noteArray = JSON.parse(noteArray);
-	if(noteArray === null){
+	if(noteArray === null || noteArray.lenth === 0){
 		return isfirstTimeUser();
 	}
 	else{
@@ -471,16 +475,43 @@ function getCookie(){
 }
 
 function isfirstTimeUser(){
-	var caution ={};
-	var techniques = {};
-	var threeExamples = {};
+	var caution = {title:'Hello', note:'This is an web app used for note taking and task management. It also helps you organize your thoughts and ideas.The feature of setting alarm and notification will also be added in the future.', id:2};
+	var techniques = {title:'Limitation', note: 'The webpage is currently using html5 local storage to storage to store all the infomation. There is an upper limit of 5 MB (You won\'t be able to use it up). If your browser doesn\'t support html5 local storage, cookie will be used as a substitution (upper limit is 4095 bytes). All the cookie will expire after 1 year. Jimmy is working on the backend of the web application. Once everything is set up, all your notes will be migarate to our server. You can confidently use it right now.', id:1};
+	var threeExamples = {title:'Future feature', note:'Right now, the create note and delete note feature was built. Later, the following feature will be built. Some of them will be created as another project and used as a module in this app.<br>1. Drag and drop (uploading file and organize notes)<br>2. right click menu<br>3. notification<br>4. Use base64 to encrypt and store images in local storageArchieve an task<br>5. Making a check list<br>6. Share Notes<br>7. Assign different colors, tags to notes and reorganize notes based on color, tag, priority and time created<br>8. Features in Nav Bar', id:0};
 	var noteArray =[];
-	noteArray.push(caution);
-	noteArray.push(techniques);
 	noteArray.push(threeExamples);
+	noteArray.push(techniques);
+	noteArray.push(caution);
 	return noteArray;
 }
 
 function deleteCard(id){
-	console.log(id);
+	if (supportLocalStorage){
+		var noteArray=getLocalStorage();
+		for(var i in noteArray){
+			if (noteArray[i].id === id){
+				noteArray.splice(i,1);
+			}
+		}
+		console.log(noteArray);
+		localStorage.removeItem('note');
+		localStorage.setItem('note', JSON.stringify(noteArray));
+	}
+	else{
+		var noteArray = getCookie();
+		for(var i in noteArray){
+			if (noteArray[i].id === id){
+				noteArray.splice(i,1);
+			}
+		}
+		noteArray =JSON.stringify(noteArray);
+		var d = new Date();
+		//expires after 1 year
+	    d.setTime(d.getTime() + (365*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString();
+	    document.cookie = "note=" + noteArray + "; " + expires;
+	}
+	
+
+	console.log(id+" has been deleted");
 }
