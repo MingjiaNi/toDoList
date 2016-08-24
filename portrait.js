@@ -158,14 +158,14 @@ function toggleSideBar(){
 	//         }
 	//     });
 	// }
-    $(".cardContainer").animate({
-        width: newWidth
-    }, {
-        duration: 400,
-        specialEasing: {
-            width: 'swing'
-        }
-    });
+    // $(".cardContainer").animate({
+    //     width: newWidth
+    // }, {
+    //     duration: 400,
+    //     specialEasing: {
+    //         width: 'swing'
+    //     }
+    // });
 
 }
 
@@ -350,11 +350,7 @@ function loadCard(newCard){
 	);
 
 
-	$(".cardBtnGroup > .deleteCard").click(function(){
-		var idToBeDeleted = $(this).parent().parent().parent().data("id");
-		$(this).parent().parent().parent().remove();
-		deleteCard(idToBeDeleted);
-	});
+	
 }
 
 function hideNote(noteContent){
@@ -401,6 +397,11 @@ function loadAllCards(){
 		loadCard(allCards[i]);
 	}
 	console.log("load all cards");
+	$(".cardBtnGroup > .deleteCard").click(function(){
+		var idToBeDeleted = $(this).parent().parent().parent().data("id");
+		$(this).parent().parent().parent().remove();
+		deleteCard(idToBeDeleted);
+	});
 }
 
 
@@ -482,6 +483,7 @@ function isfirstTimeUser(){
 	noteArray.push(threeExamples);
 	noteArray.push(techniques);
 	noteArray.push(caution);
+	// console.log(noteArray);
 	return noteArray;
 }
 
