@@ -450,14 +450,14 @@ function getNoteID(){
 
 function getLocalStorage(){
 	var noteArray = localStorage.getItem('note');
-	noteArray = JSON.parse(noteArray);
-	console.log('localStorage: ',noteArray );
-	console.log('the length of the noteArray: '+noteArray.length);
-	if (noteArray === null || noteArray.length === 0){
+	if (!noteArray || noteArray=='[]'){
 		console.log(isfirstTimeUser());
 		return isfirstTimeUser();
 	}
 	else{
+		noteArray = JSON.parse(noteArray);
+		console.log('localStorage: ',noteArray );
+		console.log('the length of the noteArray: '+noteArray.length);
 		return noteArray;		
 	}
 }
