@@ -114,15 +114,15 @@ function toggleSideBar(){
 		newWidth=$('#content').width() + 280;
 	}
 	
-	console.log(newWidth);
-	$("#content").animate({
-        width: newWidth
-    }, {
-        duration: 400,
-        specialEasing: {
-            width: 'swing'
-        }
-    });
+	// console.log(newWidth);
+	// $("#content").animate({
+ //        width: newWidth
+ //    }, {
+ //        duration: 400,
+ //        specialEasing: {
+ //            width: 'swing'
+ //        }
+ //    });
  //    if(newWidth>=1240){
 	// 	columnNumber=4;
 	// 	newWidth=1240;
